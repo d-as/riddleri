@@ -20,7 +20,9 @@ For developers:
 1. Generate an OAuth token for your Twitch channel here:
    https://phantombot.github.io/PhantomBot/oauth/ (Connect with Twitch bot)
 
-1. Run ./launch.bat, PhantomBot will ask you questions on your first launch
+1. Run ```./launch.bat``` (or ```npm start```)
+
+    - PhantomBot will ask you questions on your first launch
 
 1. Refer to an existing config/botlogin.txt and your own OAuth token:
 

@@ -1,3 +1,7 @@
+node_modules/
+
+# PhantomBot
+
 addons/
 config/
 dbbackup/
@@ -6,5 +10,8 @@ lib/
 licenses/
 logs/
 web/
+
+scripts/custom/generated/
+src/types/generated/
 
 PhantomBot.jar
