@@ -47,6 +47,7 @@ module.exports = {
     'no-confusing-arrow': OFF,
     'no-console': OFF,
     'no-plusplus': OFF,
+    'object-curly-newline': [ERROR, { consistent: true }],
     'padding-line-between-statements': [ERROR, paddingLine('always', '*', 'block-like')],
   },
 };
