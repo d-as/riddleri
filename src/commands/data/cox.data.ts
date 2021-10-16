@@ -3,7 +3,7 @@ interface UniqueGroup {
   items: string[]
 }
 
-const uniqueGroups: UniqueGroup[] = [
+export const UNIQUE_GROUPS: UniqueGroup[] = [
   {
     weighting: 20,
     items: [
@@ -38,7 +38,7 @@ const uniqueGroups: UniqueGroup[] = [
   },
 ];
 
-export const UNIQUE_POOL = uniqueGroups.map(({ weighting, items }) => (
+export const UNIQUE_POOL = UNIQUE_GROUPS.map(({ weighting, items }) => (
   items.map(item => Array(weighting).fill(item)).flat()
 ))
   .flat();

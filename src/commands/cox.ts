@@ -1,7 +1,7 @@
 import polyfills from '../polyfills';
 import { CommandEvent } from '../types/global';
 import { getArgs, getSender, randomInteger } from '../util';
-import { UNIQUE_POOL } from './data/cox.data';
+import { UNIQUE_GROUPS, UNIQUE_POOL } from './data/cox.data';
 
 const USAGE = 'Usage: !cox [kc] [points] or !cox [points]';
 const POINTS_K_REGEX = /^(\d+)k$/i;
@@ -21,6 +21,14 @@ const rollChest = (points: number): string[] => {
   }
   return drops;
 };
+
+const getUniqueWeighting = (unique: string): number => (
+  UNIQUE_GROUPS.find(({ items }) => items.includes(unique))?.weighting ?? 0
+);
+
+const sortByWeighting = ([a]: [string, number], [b]: [string, number]): number => (
+  getUniqueWeighting(b) - getUniqueWeighting(a)
+);
 
 export default (event: CommandEvent): void => {
   const args = getArgs(event);
@@ -70,6 +78,7 @@ export default (event: CommandEvent): void => {
     $.say(
       `@${sender} received loot: ${
         Object.entries(uniques)
+          .sort(sortByWeighting)
           .map(([unique, count]) => `${unique}${count > 1 ? ` ×${count}` : ''}`)
           .join(', ')
       }`,
