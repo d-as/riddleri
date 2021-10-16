@@ -1,4 +1,3 @@
-import 'core-js';
 import dryCommand from './commands/dry';
 import coxCommand from './commands/cox';
 import { BindType } from './types/bind-types';

@@ -24,7 +24,7 @@ module.exports = {
                   chrome: '40',
                   firefox: '33',
                 },
-                useBuiltIns: 'entry',
+                useBuiltIns: 'usage',
                 corejs: 3,
               },
             ],
