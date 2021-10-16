@@ -29,9 +29,6 @@ export default (event: CommandEvent): void => {
   let points: number;
   let maybePointsK: string;
 
-  console.log('argc', args.length);
-  args.forEach(arg => console.log(arg));
-
   if (args.length === 1) {
     [maybePointsK] = args as [string];
     [points] = [args].map(Number) as [number];

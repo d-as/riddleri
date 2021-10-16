@@ -38,6 +38,11 @@ export interface CommandResult {
   cache: boolean
 }
 
+export interface EmotesHandler {
+  getEmotesRegExp: () => RegExp[]
+  getEmotesMatchCount: (message: string | JavaString) => number
+}
+
 export interface $ {
   addComRegisterAliases: (...args: unknown[]) => unknown
   addComRegisterCommands: (...args: unknown[]) => unknown
@@ -70,7 +75,7 @@ export interface $ {
   discordAPI: unknown
   donationpanelupdate: unknown
   emotes: unknown
-  emotesHandler: unknown
+  emotesHandler: EmotesHandler
   equalsIgnoreCase: (str: string | JavaString) => boolean
   escapeTags: unknown
   exists: (...args: unknown[]) => boolean
