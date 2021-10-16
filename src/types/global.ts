@@ -1,45 +1,83 @@
 import { BindTypes } from './bind-types';
 
+export enum GroupID {
+  Caster = 0,
+  Administrator = 1,
+  Moderator = 2,
+  Subscriber = 3,
+  Donator = 4,
+  VIP = 5,
+  Regular = 6,
+  Viewer = 7,
+}
+
+export interface JavaString {
+  concat: (str: JavaString) => JavaString
+  equalsIgnoreCase: (str: JavaString) => boolean
+  isBlank: () => boolean
+  isEmpty: () => boolean
+  length: () => number
+  repeat: (count: number) => JavaString
+  startsWith: (prefix: string) => boolean
+  substring: (beginIndex: number, endIndex?: number) => JavaString
+  toLowerCase: () => JavaString
+  toUpperCase: () => JavaString
+  trim: () => JavaString
+  [key: string]: unknown
+}
+
+export interface CommandEvent {
+  getSender: () => JavaString
+  getCommand: () => JavaString
+  getArguments: () => JavaString
+  getArgs: () => JavaString[]
+}
+
+export interface CommandResult {
+  result: string | JavaString
+  cache: boolean
+}
+
 export interface $ {
   addComRegisterAliases: (...args: unknown[]) => unknown
   addComRegisterCommands: (...args: unknown[]) => unknown
   addModeratorToCache: (...args: unknown[]) => unknown
   addSubUsersList: (...args: unknown[]) => unknown
   addTagTransformer: (...args: unknown[]) => unknown
-  adminMsg: (...args: unknown[]) => unknown
-  alertspollssocket: (...args: unknown[]) => unknown
-  aliasExists: (...args: unknown[]) => unknown
+  adminMsg: unknown
+  alertspollssocket: unknown
+  aliasExists: (...args: unknown[]) => boolean
   arrayShuffle: (...args: unknown[]) => unknown
-  audioHookExists: (...args: unknown[]) => unknown
-  bind: (type: BindTypes, callback: (...args: unknown[]) => void) => void
-  bot: (...args: unknown[]) => unknown
-  botName: (...args: unknown[]) => unknown
-  casterMsg: (...args: unknown[]) => unknown
-  changed: (...args: unknown[]) => unknown
-  channelName: (...args: unknown[]) => unknown
-  command: (...args: unknown[]) => unknown
-  commandExists: (...args: unknown[]) => unknown
-  commandPause: (...args: unknown[]) => unknown
-  consoleDebug: (message: string) => unknown
-  consoleLn: (message: string) => unknown
-  coolDown: (...args: unknown[]) => unknown
-  coolDownKeywords: (...args: unknown[]) => unknown
-  customAPI: (...args: unknown[]) => unknown
-  dateToString: (...args: unknown[]) => unknown
-  deathUpdateFile: (...args: unknown[]) => unknown
+  audioHookExists: (...args: unknown[]) => boolean
+  bind: <T>(type: BindTypes, callback: (arg: T) => void) => void
+  bot: unknown
+  botName: unknown
+  casterMsg: unknown
+  changed: unknown
+  channelName: unknown
+  command: unknown
+  commandExists: (command: string | JavaString) => boolean
+  commandPause: unknown
+  consoleDebug: (message: string | JavaString) => void
+  consoleLn: (message: string | JavaString) => void
+  coolDown: unknown
+  coolDownKeywords: unknown
+  customAPI: unknown
+  dateToString: (date: unknown) => string | JavaString
+  deathUpdateFile: unknown
   deleteFile: (...args: unknown[]) => unknown
-  delSubUsersList: (...args: unknown[]) => unknown
-  discordAPI: (...args: unknown[]) => unknown
-  donationpanelupdate: (...args: unknown[]) => unknown
-  emotes: (...args: unknown[]) => unknown
-  emotesHandler: (...args: unknown[]) => unknown
-  equalsIgnoreCase: (...args: unknown[]) => unknown
-  escapeTags: (...args: unknown[]) => unknown
-  exists: (...args: unknown[]) => unknown
-  fileExists: (...args: unknown[]) => unknown
+  delSubUsersList: unknown
+  discordAPI: unknown
+  donationpanelupdate: unknown
+  emotes: unknown
+  emotesHandler: unknown
+  equalsIgnoreCase: (str: string | JavaString) => boolean
+  escapeTags: unknown
+  exists: (...args: unknown[]) => boolean
+  fileExists: (file: string | JavaString) => boolean
   findFiles: (...args: unknown[]) => unknown
   findSize: (...args: unknown[]) => unknown
-  gameMessages: (...args: unknown[]) => unknown
+  gameMessages: unknown
   getBotWhisperMode: (...args: unknown[]) => unknown
   getChannelAge: (...args: unknown[]) => unknown
   getCommandGroup: (...args: unknown[]) => unknown
@@ -98,80 +136,87 @@ export interface $ {
   getViewers: (...args: unknown[]) => unknown
   getVIPGroupID: (...args: unknown[]) => unknown
   giveAll: (...args: unknown[]) => unknown
-  greetingspanelupdate: (...args: unknown[]) => unknown
-  hasDiscordToken: (...args: unknown[]) => unknown
-  hasKey: (...args: unknown[]) => unknown
-  hasModeO: (...args: unknown[]) => unknown
-  hasModList: (...args: unknown[]) => unknown
-  hasRank: (...args: unknown[]) => unknown
-  inidb: (...args: unknown[]) => unknown
-  isAdmin: (...args: unknown[]) => unknown
-  isBot: (...args: unknown[]) => unknown
-  isCaster: (...args: unknown[]) => unknown
-  isDirectory: (...args: unknown[]) => unknown
-  isDonator: (...args: unknown[]) => unknown
-  isMod: (...args: unknown[]) => unknown
-  isModeratorCache: (...args: unknown[]) => unknown
-  isModv3: (...args: unknown[]) => unknown
-  isNightly: (...args: unknown[]) => unknown
-  isOnline: (...args: unknown[]) => unknown
-  isOwner: (...args: unknown[]) => unknown
-  isPrerelease: (...args: unknown[]) => unknown
-  isReg: (...args: unknown[]) => unknown
-  isSub: (...args: unknown[]) => unknown
-  isSubv3: (...args: unknown[]) => unknown
-  isSwappedSubscriberVIP: (...args: unknown[]) => unknown
-  isTurbo: (...args: unknown[]) => unknown
-  isTwitchBot: (...args: unknown[]) => unknown
-  isVIP: (...args: unknown[]) => unknown
-  javaString: (...args: unknown[]) => unknown
-  jsString: (...args: unknown[]) => unknown
-  lang: (...args: unknown[]) => unknown
-  lastJoinPart: (...args: unknown[]) => unknown
+  greetingspanelupdate: unknown
+  hasDiscordToken: (...args: unknown[]) => boolean
+  hasKey: (...args: unknown[]) => boolean
+  hasModeO: (...args: unknown[]) => boolean
+  hasModList: (...args: unknown[]) => boolean
+  hasRank: (...args: unknown[]) => boolean
+  inidb: unknown
+  isAdmin: (...args: unknown[]) => boolean
+  isBot: (...args: unknown[]) => boolean
+  isCaster: (...args: unknown[]) => boolean
+  isDirectory: (...args: unknown[]) => boolean
+  isDonator: (...args: unknown[]) => boolean
+  isMod: (...args: unknown[]) => boolean
+  isModeratorCache: (...args: unknown[]) => boolean
+  isModv3: (...args: unknown[]) => boolean
+  isNightly: (...args: unknown[]) => boolean
+  isOnline: (...args: unknown[]) => boolean
+  isOwner: (...args: unknown[]) => boolean
+  isPrerelease: (...args: unknown[]) => boolean
+  isReg: (...args: unknown[]) => boolean
+  isSub: (...args: unknown[]) => boolean
+  isSubv3: (...args: unknown[]) => boolean
+  isSwappedSubscriberVIP: (...args: unknown[]) => boolean
+  isTurbo: (...args: unknown[]) => boolean
+  isTwitchBot: (...args: unknown[]) => boolean
+  isVIP: (...args: unknown[]) => boolean
+  javaString: (str: string) => JavaString
+  jsString: (str: JavaString) => string
+  lang: unknown
+  lastJoinPart: unknown
   loadAudioHookCommands: (...args: unknown[]) => unknown
   loadPrizes: (...args: unknown[]) => unknown
   loadPrizesSlot: (...args: unknown[]) => unknown
   loadRanksTimeTable: (...args: unknown[]) => unknown
   loadScript: (...args: unknown[]) => unknown
   loadScriptR: (...args: unknown[]) => unknown
-  log: (...args: unknown[]) => unknown
-  logCustomCommand: (...args: unknown[]) => unknown
-  logging: (...args: unknown[]) => unknown
+  log: unknown
+  logCustomCommand: unknown
+  logging: unknown
   makeTwitchVODTime: (...args: unknown[]) => unknown
-  match: (...args: unknown[]) => unknown
-  matchAll: (...args: unknown[]) => unknown
+  match: unknown
+  matchAll: unknown
   mkDir: (...args: unknown[]) => unknown
-  modeOUsers: (...args: unknown[]) => unknown
-  moderation: (...args: unknown[]) => unknown
-  modListUsers: (...args: unknown[]) => unknown
-  modMsg: (...args: unknown[]) => unknown
-  moveFile: (...args: unknown[]) => unknown
+  modeOUsers: unknown
+  moderation: unknown
+  modListUsers: unknown
+  modMsg: unknown
+  moveFile: unknown
   on: (...args: unknown[]) => unknown
-  outOfRange: (...args: unknown[]) => unknown
-  ownerName: (...args: unknown[]) => unknown
-  paginateArray: (...args: unknown[]) => unknown
-  paginateArrayDiscord: (...args: unknown[]) => unknown
-  panelsocketserver: (...args: unknown[]) => unknown
-  patternDetector: (...args: unknown[]) => unknown
-  payCom: (...args: unknown[]) => unknown
+  outOfRange: unknown
+  ownerName: unknown
+  paginateArray: unknown
+  paginateArrayDiscord: unknown
+  panelsocketserver: unknown
+  patternDetector: unknown
+  payCom: unknown
   performModeration: (...args: unknown[]) => unknown
   permCom: (...args: unknown[]) => unknown
   permitUserLink: (...args: unknown[]) => unknown
-  pointNameMultiple: (...args: unknown[]) => unknown
-  pointNameSingle: (...args: unknown[]) => unknown
-  poll: (...args: unknown[]) => unknown
+  pointNameMultiple: unknown
+  pointNameSingle: unknown
+  poll: unknown
   priceCom: (...args: unknown[]) => unknown
-  raffleCommand: (...args: unknown[]) => unknown
-  rand: (...args: unknown[]) => unknown
+  raffleCommand: unknown
+  rand: (max: number) => number
   randElement: (...args: unknown[]) => unknown
-  randInterval: (...args: unknown[]) => unknown
-  random: (...args: unknown[]) => unknown
+  randInterval: (min: number, max: number) => number
+  random: (...args: unknown[]) => CommandResult
   randRange: (...args: unknown[]) => unknown
   readFile: (...args: unknown[]) => unknown
   regexExec: (...args: unknown[]) => unknown
   registerChatAlias: (...args: unknown[]) => unknown
-  registerChatCommand: (...args: unknown[]) => unknown
-  registerChatSubcommand: (...args: unknown[]) => unknown
+  registerChatCommand: (
+    location: string | JavaString, name: string | JavaString, groupID?: GroupID
+  ) => void
+  registerChatSubcommand: (
+    location: string | JavaString,
+    name: string | JavaString,
+    subcommand: string | JavaString,
+    groupID?: GroupID
+  ) => void
   reloadAdventure: (...args: unknown[]) => unknown
   reloadBet: (...args: unknown[]) => unknown
   reloadBits: (...args: unknown[]) => unknown
@@ -196,10 +241,10 @@ export interface $ {
   restoreSubscriberStatus: (...args: unknown[]) => unknown
   returnCommandCost: (...args: unknown[]) => unknown
   saveArray: (...args: unknown[]) => unknown
-  say: (...args: unknown[]) => unknown
-  sayWithTimeout: (...args: unknown[]) => unknown
-  script: (...args: unknown[]) => unknown
-  session: (...args: unknown[]) => unknown
+  say: (message: string | JavaString) => void
+  sayWithTimeout: (message: string | JavaString) => void
+  script: unknown
+  session: unknown
   setIniDbBoolean: (...args: unknown[]) => unknown
   setIniDbFloat: (...args: unknown[]) => unknown
   setIniDbNumber: (...args: unknown[]) => unknown
@@ -208,27 +253,27 @@ export interface $ {
   setUserGroupById: (...args: unknown[]) => unknown
   setUserGroupByName: (...args: unknown[]) => unknown
   streamLabsAPI: (...args: unknown[]) => unknown
-  strlen: (...args: unknown[]) => unknown
-  subCommandExists: (...args: unknown[]) => unknown
-  subUsers: (...args: unknown[]) => unknown
-  systemTime: (...args: unknown[]) => unknown
-  systemTimeNano: (...args: unknown[]) => unknown
-  tags: (...args: unknown[]) => unknown
-  tempUnRegisterChatCommand: (...args: unknown[]) => unknown
-  test: (...args: unknown[]) => unknown
+  strlen: (str: string | JavaString) => number
+  subCommandExists: (...args: unknown[]) => boolean
+  subUsers: unknown
+  systemTime: unknown
+  systemTimeNano: unknown
+  tags: unknown
+  tempUnRegisterChatCommand: unknown
+  test: unknown
   timeoutUser: (...args: unknown[]) => unknown
   touchFile: (...args: unknown[]) => unknown
   trueRand: (...args: unknown[]) => unknown
   trueRandElement: (...args: unknown[]) => unknown
   trueRandRange: (...args: unknown[]) => unknown
-  twitch: (...args: unknown[]) => unknown
-  twitchcache: (...args: unknown[]) => unknown
-  twitchCacheReady: (...args: unknown[]) => unknown
-  twitchteamscache: (...args: unknown[]) => unknown
-  twitter: (...args: unknown[]) => unknown
-  unbind: (...args: unknown[]) => unknown
-  unregisterChatCommand: (...args: unknown[]) => unknown
-  unregisterChatSubcommand: (...args: unknown[]) => unknown
+  twitch: unknown
+  twitchcache: unknown
+  twitchCacheReady: unknown
+  twitchteamscache: unknown
+  twitter: unknown
+  unbind: (...args: unknown[]) => void
+  unregisterChatCommand: (...args: unknown[]) => void
+  unregisterChatSubcommand: (...args: unknown[]) => void
   updateChannelPointsConfig: (...args: unknown[]) => unknown
   updateCommandGroup: (...args: unknown[]) => unknown
   updateFollowConfig: (...args: unknown[]) => unknown
@@ -240,19 +285,19 @@ export interface $ {
   updateSubscribeConfig: (...args: unknown[]) => unknown
   updateTimeSettings: (...args: unknown[]) => unknown
   updateUsersObject: (...args: unknown[]) => unknown
-  user: (...args: unknown[]) => unknown
-  userExists: (...args: unknown[]) => unknown
-  userGroups: (...args: unknown[]) => unknown
-  username: (...args: unknown[]) => unknown
-  usernameCache: (...args: unknown[]) => unknown
-  userPrefix: (...args: unknown[]) => unknown
-  users: (...args: unknown[]) => unknown
-  version: (...args: unknown[]) => unknown
-  welcomepanelupdate: (...args: unknown[]) => unknown
-  whisperPrefix: (...args: unknown[]) => unknown
+  user: unknown
+  userExists: (...args: unknown[]) => boolean
+  userGroups: unknown
+  username: unknown
+  usernameCache: unknown
+  userPrefix: unknown
+  users: unknown
+  version: unknown
+  welcomepanelupdate: unknown
+  whisperPrefix: (sender: string | JavaString) => string | JavaString
   writeToFile: (...args: unknown[]) => unknown
-  youtube: (...args: unknown[]) => unknown
-  ytplayer: (...args: unknown[]) => unknown
+  youtube: unknown
+  ytplayer: unknown
 }
 
 declare global {

@@ -44,6 +44,7 @@ module.exports = {
     'curly': [ERROR, 'all'],
     'func-style': [ERROR, 'expression'],
     'import/prefer-default-export': OFF,
+    'no-confusing-arrow': OFF,
     'no-console': OFF,
     'no-plusplus': OFF,
     'padding-line-between-statements': [ERROR, paddingLine('always', '*', 'block-like')],
